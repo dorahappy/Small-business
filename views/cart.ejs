@@ -68,9 +68,10 @@
                 <% }) %>
                   
                 
-            </ul>
+            </ul style='listStyle: none'>
             <li style="width:800px;margin:0 auto;" class="list-group-item">
                 总价：<span class="allprice"><%= results.allprice %></span> &nbsp;&nbsp;&nbsp;总数量:<span class="allnum"><%= results.allnum %></span>&nbsp;&nbsp;&nbsp;
+                <a href="/order"><button class="btn btn-primary order" style="float: right">结算 </button></a>
             </li>
             </div>
         <% } %>
@@ -166,7 +167,7 @@
             })
         })
 
-
+        
 
         function showXJ($el,type){
             let num = $el.siblings('.num').html()

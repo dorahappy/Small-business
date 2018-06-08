@@ -30,6 +30,11 @@ router.get('/removeGood', function(req, res, next) {
     api_handler.removeGood(params,res)
 });
 
+router.get('/addOrder', function(req, res, next) {
+    let params = req.query
+    api_handler.addOrder(params,res)
+});
+
 
 
 

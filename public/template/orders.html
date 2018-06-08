@@ -1,0 +1,49 @@
+<div class="text-info">订单列表：
+
+<style>
+    .goods-box{
+        width: 80%;margin: 0 auto;
+        height:500px;
+        overflow-y: scroll;
+    }
+    .good-box{
+        display: flex;align-items: center;justify-content: space-between;
+    }
+    .good-box div{
+        display: flex;align-items: center;
+    }
+    .order-box {
+        margin: 10px;
+        border: 1px solid #ddd;
+    }
+    img {
+        width: 100px;
+        height: 100px;
+    }
+</style>
+
+<div class="">
+
+    <ul class="list-group">
+        <li class="list-group-item order-box" ng-repeat="order in orders">
+            <div>
+                <p> 用户名: <span class="label label-primary">{{order.username}}</span></p>
+                <div class="order-box "  ng-repeat="ord in order.order">
+                    订单详情：
+                    <p  ng-repeat="good in ord.goods">
+                        <img ng-src="{{good.imgurl}}"/>
+                        商品：<span class="label label-primary">{{good.name}}</span>
+                        数量：<span class="label label-primary">{{good.num}}</span>
+                    </p>
+                    <p>收件人地址：<span class="label label-primary">{{ord.address}}</span></p>
+                    <p>收件人电话：<span class="label label-primary">{{ord.phone}}</span></p>
+                    <p>收件人姓名：<span class="label label-primary">{{ord.name}}</span></p>
+                </div>
+            </div>
+            
+        </li>
+    </ul>
+
+</div>
+
+

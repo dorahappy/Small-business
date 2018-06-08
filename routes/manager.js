@@ -16,6 +16,10 @@ router.get('/getBanner', function(req, res, next) {
     api_handler.getBanner(res)
 });
 
+router.get('/getOrder', function(req, res, next) {
+    api_handler.getOrder(res)
+});
+
 router.get('/removeBanner', function(req, res, next) {
     let params = req.query
     api_handler.removeBanner(params, res)

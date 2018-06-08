@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
       })
     },
     function(db,next){
-      db.collection('goods').find({classid:1}).limit(4).toArray((err,goods)=>{//查找对应的商品
+      db.collection('goods').find({classid:6}).limit(4).toArray((err,goods)=>{//查找对应的商品
         if(err) throw err;
         results.goods = goods
         next(null)
@@ -93,7 +93,6 @@ router.get('/list',(req,res,next)=>{
 //进详情界面，渲染show.ejs
 router.get('/show',(req,res,next)=>{
   let _id = req.query.id
-  console.log("访问者ip:",req.connection.remoteAddress)
   console.log(_id)
   connect_mongo((db)=>{
     db.collection("goods").find({_id:ObjectID(_id)}).toArray((err,results)=>{
@@ -106,8 +105,63 @@ router.get('/show',(req,res,next)=>{
   
 })
 
+//进结算界面，渲染order.ejs
+router.get('/order',(req,res,next)=>{
+  let user_info = req.cookies.user_info?JSON.parse(req.cookies.user_info):''
+  if(!user_info){
+    res.render('cart',{results:'not login'})
+    return ;
+  }
+  connect_mongo((db)=>{
 
-//进入购物车界面，渲染car.ejs
+    let carts = db.collection("carts")
+    carts.find({uid:user_info.uid}).toArray((err,results)=>{
+      if(err) throw err;
+      if(!results.length||!results[0].goods.length){
+        res.render('order',{results:'not buy'})
+      }else{
+ 
+        
+        let goods = results[0].goods
+        
+
+       console.time('temp')
+        let goodscoll = db.collection("goods")
+        let [allnum,allprice]=[0,0]
+        goodscoll.find({}).toArray((err,results)=>{
+            if(err) throw err;       
+            goods=goods.map((item)=>{
+              allnum+=item.num
+              for(var i = 0;i<results.length;i++){
+                if(results[i]._id==item.goodid){
+                  item.imgurl = results[i].imgurl
+                  item.name = results[i].name
+                  item.price = results[i].price
+                  allprice+=item.num*item.price
+                  break;
+                }
+              }
+              return item              
+            })
+            goods.allnum=allnum;
+            goods.allprice=allprice
+            res.render('order',{results:goods})
+            console.timeEnd('temp')
+        })
+        
+        
+        
+
+      }
+    db.close()    
+  })
+  
+  })
+})
+
+
+
+//进入购物车界面，渲染cart.ejs
 router.get('/cart', function(req, res, next) {
   let user_info = req.cookies.user_info?JSON.parse(req.cookies.user_info):''
   if(!user_info){
@@ -116,8 +170,8 @@ router.get('/cart', function(req, res, next) {
   }
   connect_mongo((db)=>{
 
-    let cars = db.collection("carts")
-    cars.find({uid:user_info.uid}).toArray((err,results)=>{
+    let carts = db.collection("carts")
+    carts.find({uid:user_info.uid}).toArray((err,results)=>{
       if(err) throw err;
       if(!results.length||!results[0].goods.length){
         res.render('cart',{results:'not buy'})

@@ -11,9 +11,11 @@ var removeBanner = require('./removeBanner')
 var addBanner = require('./addBanner')
 var addNewGood = require('./addNewGood')
 var updateGood = require('./updateGood')
+var addOrder = require('./addOrder')
+var getOrder = require('./getOrder')
 
 const api_handler = {
-    updateGood,login,register,getGoods,getGoodsInList,addGood,reduceGood,removeGood,getBanner,removeBanner,addBanner,addNewGood
+    updateGood,login,register,getGoods,getGoodsInList,addGood,reduceGood,removeGood,getBanner,removeBanner,addBanner,addNewGood,addOrder,getOrder
 }
 
 module.exports = api_handler

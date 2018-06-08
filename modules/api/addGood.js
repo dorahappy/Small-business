@@ -5,12 +5,12 @@ const addGood = ({uid,goodid,num},res)=>{
     //找到这个用户在carts集合里对应的文档
     num = parseFloat(num)
     connect_mongo((db)=>{
-      let cars = db.collection("carts")
-      cars.find({uid}).toArray((err,results)=>{
+      let carts = db.collection("carts")
+      carts.find({uid}).toArray((err,results)=>{
         if(err) throw err
         if(!results.length){//在cars集合里没有此用户的文档
           //创建一个文档放入
-          cars.insertOne({uid:uid,goods:[{goodid,num:num?num:1}]},(err,results)=>{
+          carts.insertOne({uid:uid,goods:[{goodid,num:num?num:1}]},(err,results)=>{
             if(err) throw err;
               res.send('1')
           })

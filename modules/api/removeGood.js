@@ -6,7 +6,7 @@ const removeGood = ({uid,goodid},res)=>{
       let carts = db.collection("carts")
       carts.find({uid}).toArray((err,results)=>{
         if(err) throw err
-          let ucar = results[0]   
+          let ucart = results[0]   
           let  goods = ucart.goods
           for(var i =0;i<goods.length;i++) {
             if(goods[i].goodid==goodid){              

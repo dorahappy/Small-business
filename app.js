@@ -32,7 +32,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // path.join('/a/b','/c/d','/f') => /a/b/c/d/f
-// __dirname 当前文件所处的目录绝对地址  C:\1718\week1\day6\web-application\public
+// __dirname 当前文件所处的目录绝对地址
 
 //使用路由，当请求的url为 / 的时候   交由index路由来处理
 app.use('/', index);

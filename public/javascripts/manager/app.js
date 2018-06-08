@@ -16,5 +16,9 @@ app.config(['$stateProvider', '$urlRouterProvider',function ($stateProvider,$url
         url:'/goods',
         templateUrl: '../../template/goods.html',
         controller:"goodsController"
+    }).state('orders', {
+        url:'/orders',
+        templateUrl: '../../template/orders.html',
+        controller:"ordersController"
     })
 }])
